@@ -1,0 +1,27 @@
+{
+    "name": "gearmagicru/gm",
+    "description": "GM Site: GM Framework components",
+    "keywords": [
+        "gm",
+        "gearmagic",
+        "framework",
+        "site",
+        "components"
+    ],
+    "homepage": "https://gearmagic.ru",
+    "type": "gm-component",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Anton Tivonenko",
+            "email": "anton.tivonenko@gmail.com",
+            "homepage": "https://gearmagic.ru/"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "gearmagicru/gm": "^2.0.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

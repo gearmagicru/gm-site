@@ -6,10 +6,10 @@
         "gearmagic",
         "framework",
         "site",
-        "components"
+        "component"
     ],
     "homepage": "https://gearmagic.ru",
-    "type": "gm-component",
+    "type": "component",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "gearmagicru/gm": "^2.0.0"
+        "gearmagicru/gm2": "^2.0"
     },
     "autoload": {
         "psr-4": {"Gm\\Site\\": "src/"}

@@ -1,27 +1,23 @@
-build
-docs
-vendor
-
-# cache directories
+# кэш каталогов
 Thumbs.db
 *.DS_Store
 *.empty
 
-#phpstorm project files
-.idea
+# файлы проектов vscode
+.vscode
 
-#netbeans project files
+# файлы проектов phpstorm
+.idea
+*.iml
+
+# файлы проектов netbeans
 nbproject
 
-#eclipse, zend studio, aptana or other eclipse like project files
+# файлы проектов eclipse, zend studio, aptana и другие
 .buildpath
 .project
 .settings
 
-# composer itself is not needed
+# файлы composer
 composer.phar
 composer.lock
-
-# mac deployment helpers
-switch
-index

@@ -1,13 +1,7 @@
 {
     "name": "gearmagicru/gm-site",
-    "description": "GM Site: GM Framework components",
-    "keywords": [
-        "gm",
-        "gearmagic",
-        "framework",
-        "site",
-        "component"
-    ],
+    "description": "GM Framework component \"GM Site\"",
+    "keywords": ["gearmagic", "gm-framework", "gm-framework-component", "framework", "component"],
     "homepage": "https://gearmagic.ru",
     "type": "component",
     "license": "BSD-3-Clause",

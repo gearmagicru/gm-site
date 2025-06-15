@@ -172,7 +172,14 @@ class Page extends Service
     public bool $useMetaGenerator = true;
 
     /**
-     * Метаданные страницы для используемых языков сайта.
+     * Активность сайта.
+     * 
+     * @var bool
+     */
+    public bool $active = true;
+
+    /**
+     * Метаданные страницы (по умолчанию) для используемых языков сайта.
      * 
      * Пример:
      * ```php
@@ -358,7 +365,7 @@ class Page extends Service
      * 
      * @return Article
      */
-    public function createArticle(array $data = null): Article
+    public function createArticle(?array $data = null): Article
     {
         $article = new Article();
 
@@ -633,7 +640,7 @@ class Page extends Service
      * 
      * @return string|null
      */
-    public function getKeywords(string $languageTag = null): ?string
+    public function getKeywords(?string $languageTag = null): ?string
     {
         $article  = $this->find();
         $keywords = $article ? $article->keywords : '';
@@ -643,7 +650,7 @@ class Page extends Service
                 $languageTag = Gm::$app->language->tag;
             }
 
-            $keywords = $this->meta['keywords'] ?? $this->keywords;
+            $keywords = $this->meta[$languageTag]['keywords'] ?? $this->keywords;
         }
         return $keywords;
     }
@@ -657,7 +664,7 @@ class Page extends Service
      * 
      * @return string|null
      */
-    public function getDescription(string $languageTag = null): ?string
+    public function getDescription(?string $languageTag = null): ?string
     {
         $article = $this->find();
         $desc    = $article ? $article->description : '';
@@ -681,7 +688,7 @@ class Page extends Service
      * 
      * @return string
      */
-    public function getImage(string $languageTag = null): string
+    public function getImage(?string $languageTag = null): string
     {
         $article = $this->find();
         $image   = $article ? $article->image : '';
@@ -705,7 +712,7 @@ class Page extends Service
      * 
      * @return array
      */
-    public function getRobots(string $languageTag = null): array
+    public function getRobots(?string $languageTag = null): array
     {
         $article = $this->find();
         if ($article) {
@@ -738,7 +745,7 @@ class Page extends Service
      * 
      * @return string
      */
-    public function getTitle(string $languageTag = null): string
+    public function getTitle(?string $languageTag = null): string
     {
         // если главная страница
         if ($this->isHome())
@@ -769,7 +776,7 @@ class Page extends Service
      * 
      * @return $this
      */
-    public function setTitle(string $title, string $languageTag = null): static
+    public function setTitle(string $title, ?string $languageTag = null): static
     {
         if ($languageTag === null) {
             $languageTag = Gm::$app->language->tag;
@@ -787,6 +794,35 @@ class Page extends Service
      * @var bool
      */
     private bool $isHome;
+
+    /**
+     * Возвращает метаданные страницы (по умолчанию).
+     * 
+     * @see Page::$meta
+     * 
+     * @param null|string $languageTag Тег языка, например: "ru-RU", "en-GB"... 
+     *     Если значение `null`, то результатом будут значения указанные по умолчанию.
+     *
+     * @return array
+     */
+    public function getDefaultMeta(?string $languageTag = null): array
+    {
+        if ($languageTag === null) {
+            $languageTag = Gm::$app->language->tag;
+        }
+        if (isset($this->meta[$languageTag]))
+            return $this->meta[$languageTag];
+        else
+            return [
+            'titlePattern' => $this->titlePattern,
+            'title'        => $this->title,
+            'author'       => $this->author,
+            'keywords'     => $this->keywords,
+            'description'  => $this->description,
+            'image'        => $this->image,
+            'robots'       => $this->robots
+        ];
+    }
 
     /**
      * Проверяет, является ли текущая страница сайта главной.
@@ -948,7 +984,7 @@ class Page extends Service
      * 
      * @return string
      */
-    public function formatDate(DateTimeInterface|string|int $value, string $format = null, bool $normalize = true): string
+    public function formatDate(DateTimeInterface|string|int $value, ?string $format = null, bool $normalize = true): string
     {
         return $value ? $this->formatter->toDateTimeZone($value, $format, $normalize, $this->dataTimeZone) : '';
     }

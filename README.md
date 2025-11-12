@@ -1,6 +1,6 @@
-# Компоненты GM Site входят в состав GM Framework
+# Пакет компонентов GM Site входят в состав GM Framework
 
-Компоненты (контролеры, модели данных, помощники...) обеспечивают функциональность веб-сайта.
+Компоненты (контролеры, модели данных, помощники...) обеспечивающие функциональность веб-сайта.
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/gearmagicru/gm-site.svg)](https://packagist.org/packages/gearmagicru/gm-site)
 [![Total Downloads](https://img.shields.io/packagist/dt/gearmagicru/gm-site.svg)](https://packagist.org/packages/gearmagicru/gm-site)

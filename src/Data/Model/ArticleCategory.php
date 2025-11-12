@@ -139,7 +139,7 @@ class ArticleCategory extends ActiveRecord
    /**
      * Возвращает родительскую категорию для указанной или текущей категории.
      *
-     * @param int|null $id Идентификатор категории для которой необходимо найти 
+     * @param null|int $id Идентификатор категории для которой необходимо найти 
      *     родительскую категорию. Если значение `null`, поиск для текущей категории
      *     (по умолчанию `null`).
      * @param int $depth Глубина (уровень) поиска родительской категории 
@@ -148,7 +148,7 @@ class ArticleCategory extends ActiveRecord
      * @return array|null Атрибуты родительской категории в виде пар "ключ - значение". 
      *     Иначе значение `null`, если для указанного узла нет родительского.
      */
-    public function getParent(int $id = null, int $depth = 1): ?array
+    public function getParent(?int $id = null, int $depth = 1): ?array
     {
         /** @var \Gm\NestedSet\Nodes $nodes */
         $nodes = $this->getNodes();
@@ -158,13 +158,13 @@ class ArticleCategory extends ActiveRecord
    /**
      * Возвращает все родительские категории для указанной или текущей категории.
      *
-     * @param int|null $id Идентификатор категории для которой необходимо найти 
+     * @param null|int $id Идентификатор категории для которой необходимо найти 
      *     родительские категории. Если значение `null`, поиск для текущей категории
      *     (по умолчанию `null`).
      *
      * @return array|null Атрибуты родительских категорий в виде пар "ключ - значение".
      */
-    public function getParents(int $id = null): ?array
+    public function getParents(?int $id = null): ?array
     {
         /** @var \Gm\NestedSet\Nodes $nodes */
         $nodes = $this->getNodes();

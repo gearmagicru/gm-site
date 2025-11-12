@@ -57,7 +57,7 @@ class Selector extends BaseModel
      * ]
      * ```
      * 
-     * @param array|null $where Условие выполнения SQL-запроса (по умолчанию `null`).
+     * @param null|array $where Условие выполнения SQL-запроса (по умолчанию `null`).
      * @param string|array $group Поле по которому выполняется группировка. 
      *     Если значение `null`, группировка не будет выполняться (по умолчанию `null`).
      * @param string|null $fetchKey Ключ возвращаемого ассоциативного массива. Если `null`, 
@@ -65,7 +65,7 @@ class Selector extends BaseModel
      *
      * @return int|array
      */
-    public function articlesCount(array $where = null, ?string $group = null, ?string $fetchKey = null): int|array
+    public function articlesCount(?array $where = null, ?string $group = null, ?string $fetchKey = null): int|array
     {
         if ($group)
             $columns = [
@@ -352,13 +352,13 @@ class Selector extends BaseModel
      * ]
      * ```
      * 
-     * @param array|null $where Условие выполнения SQL-запроса (по умолчанию `null`).
-     * @param string|null $group Поле по которому выполняется группировка. 
+     * @param null|array $where Условие выполнения SQL-запроса (по умолчанию `null`).
+     * @param null|string $group Поле по которому выполняется группировка. 
      *     Если значение `null`, группировка не будет выполняться (по умолчанию `null`).
      *
      * @return int|array
      */
-    public function categoriesCount(?array $where = null, string $group = null): int|array
+    public function categoriesCount(?array $where = null, ?string $group = null): int|array
     {
         if ($group)
             $columns = [
@@ -422,14 +422,14 @@ class Selector extends BaseModel
      * Возвращает категорию материала по указаному идентификатору.
      * 
      * @param int $id Идентификатор категории материала.
-     * @param array $columns Столбцы выборки материала. Если вы не укажете столбцы 
+     * @param null|array $columns Столбцы выборки материала. Если вы не укажете столбцы 
      *     для выборки, то по умолчанию будет установлено значение `['*']` или `null` (означающее "все столбцы"). 
      * @param int $fetchMode Вид получаемого выборкой материала {@see \Gm\Db\Adapter\Driver\AbstractCommand::$fetchMode} 
      *     (по умолчанию {@see PDO::FETCH_ASSOC}).
      *
      * @return mixed
      */
-    public function categoryById(int $id, array $columns = null, int $fetchMode = PDO::FETCH_ASSOC): mixed
+    public function categoryById(int $id, ?array $columns = null, int $fetchMode = PDO::FETCH_ASSOC): mixed
     {
         return $this->category(['id' => $id], $columns, $fetchMode);
     }

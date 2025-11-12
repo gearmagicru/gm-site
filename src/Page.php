@@ -243,7 +243,7 @@ class Page extends Service
      * 
      * @var UrlRules
      */
-    public UrlRules $urlRules;
+    protected UrlRules $urlRules;
 
     /**
      * Часовой пояс информации выводимой на странице.
@@ -319,9 +319,6 @@ class Page extends Service
 
         if (!isset($this->script)) {
             $this->script = Gm::$services->getAs('clientScript');
-        }
-        if (!isset($this->select)) {
-            $this->select = $this->getSelector();
         }
         if (!isset($this->formatter)) {
             $this->formatter =  Gm::$services->getAs('formatter');
@@ -543,6 +540,49 @@ class Page extends Service
     }
 
     /**
+     * Устанавливает мета-информацию странице.
+     * 
+     * Не применяет и не вызывает материал или его категорию.
+     * 
+     * @see \Gm\View\ClientScript::registerMeta()
+     * 
+     * @return $this
+     */
+    public function setMeta(array $metaContent): static
+    {
+        $meta = ['meta'];
+        //  если используется микроразметка "Open Graph"
+        if ($this->useOpenGraph) {
+            $meta['openGraph'] = [];
+        }
+        //  если используется микроразметка "Twitter Card"
+        if ($this->useTwitterCard) {
+            if (!isset($meta['openGraph'])) {
+                $meta['openGraph'] = [];
+            }
+            $meta['openGraph'][] = 'twitter';
+        }
+        // если используется микроразметка "Schema.org"
+        if ($this->useSchemaOrg) {
+            if (!isset($meta['openGraph'])) {
+                $meta['openGraph'] = [];
+            }
+            $meta['openGraph'][] = 'schemaOrg';
+        }
+        // если используется микроразметка "VK"
+        if ($this->useVKSchema) {
+            if (!isset($meta['openGraph'])) {
+                $meta['openGraph'] = [];
+            }
+            $meta['openGraph'][] = 'vk';
+        }
+
+        // регистрация меты микроразметок
+        $this->script->registerMeta($metaContent, $meta);
+        return $this;
+    }
+
+    /**
      * Выполняет регистрацию (добавление параметров) мета-информации страницы.
      * 
      * Мета-информацию указывают в свойствах материала или страницы.
@@ -559,7 +599,6 @@ class Page extends Service
             'site'        => $this->getTitle(),
             'robots'      => $this->getRobots(),
             'url'         => $this->getUrl(),
-            //'author'      => $this->getAuthor(),
             'keywords'    => $this->getKeywords(),
             'description' => $this->getDescription(),
             'tag'         => $this->getKeywords(),
